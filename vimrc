@@ -247,7 +247,8 @@ au Syntax * RainbowParenthesesLoadSquare
 
 " powerline
 "set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
-"let g:Powerline_symbols = 'fancy'
+let g:Powerline_symbols = 'fancy'
+
 
 " syntastic
 let g:syntastic_python_checkers = ['flake8']
