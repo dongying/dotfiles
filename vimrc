@@ -23,7 +23,6 @@ set fencs=utf-8,chinese
 
 syntax on
 filetype on
-filetype plugin indent on " required by Vundle
 
 set history=100
 set nobackup
@@ -64,12 +63,11 @@ set scrolloff=5
 " Tabs
 set tabpagemax=7
 set showtabline=2
-map tn :tabnew .<cr>
-map tc :tabclose<cr>
 
 " Fold
 set foldmethod=indent
-set foldlevel=2
+"set foldlevel=2
+set nofoldenable
 
 " Storage
 " centralize backups, swapfiles and undo history
@@ -104,17 +102,21 @@ set wildmenu " When 'wildmenu' is on, command-line completion operates in an enh
 "              CTRL-P/CTRL-N, cause the highlight to move to the appropriate match.
 "set wildchar=
 "set wildmode=
-set completeopt=menu,preview " A comma separated list of options for Insert mode completion
+
+" A comma separated list of options for Insert mode completion
+set completeopt=menu
+" get rid of the fucking preview window
+"set completeopt-=preview
+
 " tab characters display dot
 set list!
 set listchars=tab:>-
+
 " highlight trailing whitespace
 autocmd ColorScheme * highlight TrailWhitespace ctermbg=red guibg=red
 highlight TrailWhitespace ctermbg=red guibg=red
 match TrailWhitespace /\s\+$/
 
-" get rid of the fucking preview window
-set completeopt-=preview
 
 
 """""""""""""""""""
@@ -150,10 +152,10 @@ else
     highlight PmenuSbar ctermbg=7
 endif
 
-"if has("gui_running")
-    "set guioptions-=M
-    "set guioptions-=T
-"endif
+if has("gui_running")
+    set guioptions-=M
+    set guioptions-=T
+endif
 
 """"""""""""""""""""
 " Custom Functions "
@@ -177,97 +179,20 @@ autocmd BufReadPost *
       \ endif
 
 """""""""""
-" Plugins "
-"""""""""""
-" nerdtree
-let NERDTreeWinPos='left'
-let NERDTreeWinSize=25
-let NERDTreeAutoCenter=1
-let NERDChristmasTree=1
-let NERDTreeShowHidden=0
-let NERDTreeChDirMode=1
-let NERDTreeMouseMode=2
-let NERDTreeIgnore = ['\.pyc$']
-let g:nerdtree_tabs_open_on_gui_startup=0
-
-" tagbar
-let g:tagbar_sort=0
-let g:tagbar_left=0
-let g:tagbar_width=25
-
-"indent guide
-let g:indent_guides_start_level=2
-let g:indent_guides_guide_size=1
-let g:indent_guides_auto_colors=0
-hi IndentGuidesOdd  guibg=darkgrey ctermbg=darkgrey
-hi IndentGuidesEven guibg=darkgrey ctermbg=darkgrey
-
-" rainbow parentheses
-" 'lightgray' is 'red' originally
-let g:rbpt_colorpairs = [
-    \ ['brown',       'RoyalBlue3'],
-    \ ['Darkblue',    'SeaGreen3'],
-    \ ['darkgray',    'DarkOrchid3'],
-    \ ['darkgreen',   'firebrick3'],
-    \ ['darkcyan',    'RoyalBlue3'],
-    \ ['darkred',     'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['brown',       'firebrick3'],
-    \ ['gray',        'RoyalBlue3'],
-    \ ['black',       'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['Darkblue',    'firebrick3'],
-    \ ['darkgreen',   'RoyalBlue3'],
-    \ ['darkcyan',    'SeaGreen3'],
-    \ ['darkred',     'DarkOrchid3'],
-    \ ['lightgray',         'firebrick3'],
-    \ ]
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-"au Syntax * RainbowParenthesesLoadBraces
-
-" neocomplcache
-" Disable AutoComplPop. Comment out this line if AutoComplPop is not installed.
-"let g:acp_enableAtStartup=0
-"let g:neocomplcache_enable_at_startup=1
-"let g:neocomplcache_disable_auto_complete=1
-"let g:neocomplcache_max_list=20
-"let g:neocomplcache_enable_ignore_case=0
-"let g:neocomplcache_min_syntax_length=3
-"autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-"autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-"autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-"autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-
-" supertab compatibility with neocomplcache
-"let g:SuperTabDefaultCompletionType = '<C-X><C-U>'
-"let g:SuperTabRetainCompletionType=2
-
-" flake8
-" let g:flake8_ignore="E501,W806"
-
-" powerline
-"set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
-let g:Powerline_symbols = 'fancy'
-
-
-" syntastic
-let g:syntastic_python_checkers = ['flake8']
-"let g:syntastic_python_checker_args='--ignore=E501,W404,W801'
-let g:syntastic_python_flake8_args='--ignore=E501,W404,W801'
-
-let g:syntastic_mode_map = { 'mode': 'active',
-                           \ 'active_filetypes': ['python', 'javascript'],
-                           \ 'passive_filetypes': ['rst'] }
-"""""""""""
 " Keymaps "
 """""""""""
+
 nmap <F8> :TagbarToggle<cr>
 nmap <F4> :NERDTreeToggle<cr>
 nmap <F7> :GundoToggle<cr>
 nmap <F10> :IndentGuidesToggle<cr>
+
+" Fix syntax highlighting,
+noremap <F5> <Esc>:syntax sync fromstart<CR>
+inoremap <F5> <C-o>:syntax sync fromstart<CR>
+
 noremap <leader>ss :call StripWhitespace()<CR>
+
 " Save a file as root (,W)
 noremap <leader>W :w !sudo tee % > /dev/null<CR>
 
@@ -277,16 +202,14 @@ nnoremap <c-k> <c-w>k
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
 
+map tn :tabnew<cr>
+map tc :tabclose<cr>
 map <C-n> :tabnext<cr>
 map <C-p> :tabprevious<cr>
 
 " recover from accidental Ctrl-U
 inoremap <C-U> <C-G>u<C-U>
 inoremap <c-w> <c-g>u<c-w>
-
-" Fix syntax highlighting,
-noremap <F5> <Esc>:syntax sync fromstart<CR>
-inoremap <F5> <C-o>:syntax sync fromstart<CR>
 
 " :map <F2> :w\|!python %<CR>
 
@@ -300,16 +223,16 @@ import os.path
 import sys
 import vim
 if 'VIRTUAL_ENV' in os.environ:
-    project_base_dir = os.environ['VIRTUAL_ENV']
-    sys.path.insert(0, project_base_dir)
-    activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+    env_base_dir = os.environ['VIRTUAL_ENV']
+    sys.path.insert(0, env_base_dir)
+    activate_this = os.path.join(env_base_dir, 'bin/activate_this.py')
     execfile(activate_this, dict(__file__=activate_this))
 EOF
 endif
 
 "TODO sequence number on tabline
 
-hi TabLine           cterm=underline ctermfg=0    ctermbg=7   gui=underline guibg=#6c6c6c guifg=White
+hi TabLine           cterm=underline ctermfg=0     ctermbg=7   gui=underline guibg=#6c6c6c guifg=White
 hi TabLineSel        cterm=bold      gui=NONE      guifg=White
 hi TabLineFill       cterm=reverse   gui=reverse
 " Reload Vimrc
