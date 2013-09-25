@@ -130,7 +130,9 @@ set completeopt-=preview
     "endif
 "endif
 
-set mouse=a
+if has('mouse')
+  set mouse=r
+endif
 
 
 """"""""""
