@@ -1,16 +1,19 @@
-" Author: reorx
-
 " Should at the top since it will affect bundles.vim
-set t_Co=256
+
+""""""""""
+" Colors "
+""""""""""
+"set t_Co=256
+colorscheme Tomorrow-Night-Bright
+highlight Pmenu ctermbg=234 guibg=#606060
+highlight PmenuSel ctermbg=17 guifg=#dddd00
+highlight PmenuSbar ctermbg=17 guibg=#d6d6d6
 
 """"""""""""""""
 " Load Bundles "
 """"""""""""""""
-
-" so that it can be easily accessed
 let $MYBUNDLES='~/.vim/bundles.vim'
 source $MYBUNDLES
-
 
 """""""""""
 " General "
@@ -83,6 +86,12 @@ autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
 autocmd FileType jade setlocal shiftwidth=2 tabstop=2
 autocmd FileType stylus setlocal shiftwidth=2 tabstop=2
 
+au BufNewFile,BufReadPost *.coffee setl shiftwidth=4 expandtab
+au BufNewFile,BufReadPost *.js setl shiftwidth=2 expandtab
+au BufNewFile,BufReadPost *.html setl shiftwidth=2 expandtab
+au BufNewFile,BufReadPost *.css setl shiftwidth=2 expandtab
+au BufNewFile,BufReadPost *.mustache setl shiftwidth=2 expandtab
+
 " Display
 set ruler " Show the line and column number of the cursor position, separated by a comma.
 set showcmd " Show (partial) command in the last line of the screen.
@@ -137,26 +146,6 @@ if has('mouse')
 endif
 
 
-""""""""""
-" Colors "
-""""""""""
-if &t_Co == 256
-    colorscheme Tomorrow-Night-Bright
-    highlight Pmenu ctermbg=234 guibg=#606060
-    highlight PmenuSel ctermbg=17 guifg=#dddd00
-    highlight PmenuSbar ctermbg=17 guibg=#d6d6d6
-else
-    colorscheme caciano
-    highlight Pmenu ctermbg=0
-    highlight PmenuSel ctermbg=4
-    highlight PmenuSbar ctermbg=7
-endif
-
-if has("gui_running")
-    set guioptions-=M
-    set guioptions-=T
-endif
-
 """"""""""""""""""""
 " Custom Functions "
 """"""""""""""""""""
@@ -182,10 +171,8 @@ autocmd BufReadPost *
 " Keymaps "
 """""""""""
 
-nmap <F8> :TagbarToggle<cr>
+nmap <F3> :TagbarToggle<cr>
 nmap <F4> :NERDTreeToggle<cr>
-nmap <F7> :GundoToggle<cr>
-nmap <F10> :IndentGuidesToggle<cr>
 
 " Fix syntax highlighting,
 noremap <F5> <Esc>:syntax sync fromstart<CR>
@@ -216,24 +203,25 @@ inoremap <c-w> <c-g>u<c-w>
 """"""""""
 " Python "
 """"""""""
-" Add the virtualenv's site-packages to vim path
-if has('python')
-py << EOF
-import os.path
-import sys
-import vim
-if 'VIRTUAL_ENV' in os.environ:
-    env_base_dir = os.environ['VIRTUAL_ENV']
-    sys.path.insert(0, env_base_dir)
-    activate_this = os.path.join(env_base_dir, 'bin/activate_this.py')
-    execfile(activate_this, dict(__file__=activate_this))
-EOF
-endif
+"" Add the virtualenv's site-packages to vim path
+"if has('python')
+"py << EOF
+"import os.path
+"import sys
+"import vim
+"if 'VIRTUAL_ENV' in os.environ:
+"    env_base_dir = os.environ['VIRTUAL_ENV']
+"    sys.path.insert(0, env_base_dir)
+"    activate_this = os.path.join(env_base_dir, 'bin/activate_this.py')
+"    execfile(activate_this, dict(__file__=activate_this))
+"EOF
+"endif
 
-"TODO sequence number on tabline
 
-hi TabLine           cterm=underline ctermfg=0     ctermbg=7   gui=underline guibg=#6c6c6c guifg=White
-hi TabLineSel        cterm=bold      gui=NONE      guifg=White
-hi TabLineFill       cterm=reverse   gui=reverse
-" Reload Vimrc
-map <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
+""TODO sequence number on tabline
+"
+"hi TabLine           cterm=underline ctermfg=0     ctermbg=7   gui=underline guibg=#6c6c6c guifg=White
+"hi TabLineSel        cterm=bold      gui=NONE      guifg=White
+"hi TabLineFill       cterm=reverse   gui=reverse
+"" Reload Vimrc
+"map <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>

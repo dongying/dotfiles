@@ -20,30 +20,21 @@ call vundle#rc()
 " required!
 Bundle 'gmarik/vundle'
 
+"" Syntax
+Bundle 'ChrisYip/Better-CSS-Syntax-for-Vim'
+Bundle 'lepture/vim-javascript'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'juvenn/mustache.vim'
+Bundle 'davidm/lua-inspect'
+
+" Colorschems
+
 " Enhancement
 " complement
-Bundle 'SuperTab-continued.'
-" easy commentting
-Bundle 'mattn/zencoding-vim'
-Bundle 'scrooloose/nerdcommenter'
+Bundle 'SuperTab'
 " bracket highlighting
 Bundle 'kien/rainbow_parentheses.vim'
-" indentation ruler
-Bundle 'nathanaelkane/vim-indent-guides'
-" key maps
-Bundle 'tpope/vim-unimpaired'
-" manipulate surrounding marks
-Bundle 'tpope/vim-surround'
 
-"Bundle 'Lokaltog/vim-easymotion'
-" align
-"Bundle 'godlygeek/tabular'
-" session management
-"Bundle 'sessionman.vim'
-" quick edit
-"Bundle 'Shougo/neocomplcache'
-
-" Component
 " code tags
 Bundle 'majutsushi/tagbar'
 " syntax checking
@@ -52,52 +43,10 @@ Bundle 'scrooloose/syntastic'
 Bundle 'scrooloose/nerdtree'
 " text searching like grep
 Bundle 'mileszs/ack.vim'
-" file searching
-Bundle 'kien/ctrlp.vim'
 " bottom status line
 Bundle 'Lokaltog/vim-powerline'
-"Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
-"Bundle 'bling/vim-airline'
-" change tracking
-Bundle 'sjl/gundo.vim'
 " start page
 Bundle 'mhinz/vim-startify'
-
-""git wrapper
-"Bundle 'tpope/vim-fugitive'
-"Bundle 'fs111/pydoc.vim'
-"Bundle 'benmills/vimux'
-"Bundle 'jistr/vim-nerdtree-tabs'
-"Bundle 'Lokaltog/vim-powerline'
-
-" Syntax
-Bundle 'ChrisYip/Better-CSS-Syntax-for-Vim'
-Bundle 'lepture/vim-javascript'
-
-"Bundle 'digitaltoad/vim-jade'
-"Bundle 'wavded/vim-stylus'
-"Bundle 'skammer/vim-css-color'
-"Bundle 'plasticboy/vim-markdown'
-
-" Colorschems
-Bundle 'guns/xterm-color-table.vim'
-Bundle 'chriskempson/vim-tomorrow-theme'
-
-" Make gvim-only colorschemes work transparently in terminal vim
-"if !has("gui_running") && &t_Co == 256
-    "Bundle 'godlygeek/csapprox'
-    "let g:CSApprox_attr_map = { 'bold' : 'bold', 'italic' : '', 'sp' : '' }
-"endif
-
-" 256 Only
-"Bundle 'rickharris/vim-monokai'
-"Bundle 'endel/vim-github-colorscheme'
-"Bundle 'reorx/vim-colors-solarized'
-"Bundle 'chriskempson/vim-tomorrow-theme'
-"Bundle 'Lokaltog/vim-distinguished'
-"Bundle 'rickharris/vim-blackboard'
-"Bundle 'tpope/vim-vividchalk'
-"Bundle 'chriskempson/base16-vim'
 
 
 filetype plugin indent on  " re-enable
@@ -152,45 +101,21 @@ let g:rbpt_colorpairs = [
 au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
-"au Syntax * RainbowParenthesesLoadBraces
-
-" neocomplcache
-" Disable AutoComplPop. Comment out this line if AutoComplPop is not installed.
-"let g:acp_enableAtStartup=0
-"let g:neocomplcache_enable_at_startup=1
-"let g:neocomplcache_disable_auto_complete=1
-"let g:neocomplcache_max_list=20
-"let g:neocomplcache_enable_ignore_case=0
-"let g:neocomplcache_min_syntax_length=3
-"autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-"autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-"autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-"autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-
-" supertab compatibility with neocomplcache
-"let g:SuperTabDefaultCompletionType = '<C-X><C-U>'
-"let g:SuperTabRetainCompletionType=2
-
-" airline
-" let g:airline_powerline_fonts = 1
+au Syntax * RainbowParenthesesLoadBraces
 
 " powerline
 let g:Powerline_symbols = 'compatible'
 
 " syntastic
 let g:syntastic_python_checkers = ['flake8']
-let g:syntastic_python_flake8_args='--ignore=E501,W404,W801'
+let g:syntastic_python_flake8_args='--ignore=E501,F403'
 let g:syntastic_mode_map = { 'mode': 'active',
-                           \ 'active_filetypes': ['python', 'javascript'],
+                           \ 'active_filetypes': ['python', 'javascript', 'lua'],
                            \ 'passive_filetypes': ['rst'] }
-" Not setting the loclist by default is the intended behaviour. Previously we did set it, but syntastic isnt the only plugin using loclists. See #324
 let g:syntastic_always_populate_loc_list=1
 
 " ack
 set shellpipe=&>
-
-" ctrlp
-let g:ctrlp_map = '<c-i>'
 
 " startify
 let g:startify_session_dir = '~/.vim/sessions'
