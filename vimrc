@@ -83,14 +83,14 @@ endif
 " File Specials
 autocmd FileType text setlocal textwidth=80
 autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
-autocmd FileType jade setlocal shiftwidth=2 tabstop=2
-autocmd FileType stylus setlocal shiftwidth=2 tabstop=2
+autocmd FileType jade setlocal shiftwidth=4 tabstop=2
+autocmd FileType stylus setlocal shiftwidth=4 tabstop=2
 
 au BufNewFile,BufReadPost *.coffee setl shiftwidth=4 expandtab
-au BufNewFile,BufReadPost *.js setl shiftwidth=2 expandtab
-au BufNewFile,BufReadPost *.html setl shiftwidth=2 expandtab
-au BufNewFile,BufReadPost *.css setl shiftwidth=2 expandtab
-au BufNewFile,BufReadPost *.mustache setl shiftwidth=2 expandtab
+au BufNewFile,BufReadPost *.js setl shiftwidth=4 expandtab
+au BufNewFile,BufReadPost *.html setl shiftwidth=4 expandtab
+au BufNewFile,BufReadPost *.css setl shiftwidth=4 expandtab
+au BufNewFile,BufReadPost *.mustache setl shiftwidth=4 expandtab
 
 " Display
 set ruler " Show the line and column number of the cursor position, separated by a comma.
